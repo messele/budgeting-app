@@ -1,0 +1,61 @@
+
+# Budjet
+mutation {
+  createbudget(name:"LAHOMES", description:"Appartment bought from Mark", amount:900000.00, currency:"usd", category:"1") {
+    id
+  }
+}
+
+query GetAllBudgets{
+  budgets {
+    id
+    name
+    amount
+    crte_dttm
+    status
+    end_dttm
+  }
+}
+# transactions
+mutation {
+  createTransaction(budget_id:1, type:"payment", description:"First Payment", amount:15000.00, currency:"usd") {
+    id
+  }
+}
+
+query GetTransactionByBudget {
+  transactions(budget_id:1) {
+    id
+    crte_dttm
+    budget_id
+    description
+    amount
+    currency
+  }
+}
+
+mutation deleteTransaction{
+  deleteTransaction(id:4) {
+    crte_dttm
+    description
+    amount
+    currency
+  }
+}
+
+### Frequency
+query getAllSchedule {
+  schedule(budget_id:1) {
+    frequency,
+    next_date
+  }
+}
+
+mutation createSchedule {
+  createBudgetSchedule(budget_id:"1") {
+    frequency,
+    next_date
+  }
+}
+
+

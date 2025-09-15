@@ -1,0 +1,19 @@
+{
+  "name": "budgeting-app-server",
+  "version": "1.0.0",
+  "description": "Server for budgeting app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.10.1",
+    "pg": "^8.16.3"
+  }
+}
