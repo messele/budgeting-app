@@ -9,7 +9,9 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import Header from "./header";
+import { ApolloProvider } from "@apollo/client/react";
+import client from "./graphql";
+import Header from "./components/header";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -44,10 +46,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
-      <Header/>
-      <Outlet />
-    </>
+    <ApolloProvider client={client}>
+      <div className="flex flex-col w-[80vw] m-auto items-center justify-center pt-16 pb-4">
+        <Header/>
+        <Outlet />
+      </div>
+    </ApolloProvider>
   );
 }
 

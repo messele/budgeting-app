@@ -1,6 +1,6 @@
 import { Welcome } from "~/welcome/welcome";
 import type { Route } from "./+types/home";
-import Header from "~/header";
+import AppLayout from "~/components/AppLayout";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,8 +11,10 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <>
-      <Welcome />
-    </>
+    <AppLayout title={"Welcome to Personal Organizer App"}>
+      <div className="flex m-auto text-center">
+        All your personal organization items here.
+      </div>
+    </AppLayout>
   );
 }

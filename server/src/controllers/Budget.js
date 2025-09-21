@@ -42,7 +42,7 @@ export default class Budget extends GraphqlController {
   getResolvers = () => ({
     budgets: async () =>
       await this.execute(
-        `SELECT crte_dttm, end_dttm, id, name, description, amount, status FROM public.budget`
+        `SELECT crte_dttm::DATE, end_dttm::DATE, id, name, description, amount, status FROM public.budget`
       ),
     budget: async ({ id }) => {
       const result = await this.execute("Select * from budget where id = $1", [
@@ -57,5 +57,19 @@ export default class Budget extends GraphqlController {
       );
       return result[0];
     },
+    updateBudget: async ({ id, description, amount, currency, category }) => {  
+      const result = await this.execute(
+        `UPDATE budget SET description = $1, amount = $2, currency = $3, category = $4 WHERE id = $5 RETURNING *`,
+        [description, amount, currency, category, id]
+      );
+      return result[0];
+    },
+    deleteBudget: async ({ id }) => {  
+      const result = await this.execute(
+          "DELETE FROM budget WHERE id = $1 RETURNING *",
+          [id]
+      );
+      return result[0];
+  } 
   });
 }
