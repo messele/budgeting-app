@@ -8,10 +8,10 @@ CREATE DATABASE "budgetdb"
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
---GRANT TEMPORARY, CONNECT ON DATABASE "expensedb" TO PUBLIC;
+--GRANT TEMPORARY, CONNECT ON DATABASE "budgetdb" TO PUBLIC;
 CREATE USER budget_user  WITH PASSWORD 'WorkHardPlayHard!';
-GRANT ALL ON DATABASE "expensedb" TO budget_user;
-GRANT ALL ON DATABASE "expensedb" TO postgres; 
+GRANT ALL ON DATABASE "budgetdb" TO budget_user;
+GRANT ALL ON DATABASE "budgetdb" TO postgres; 
 
 ALTER ROLE budget_user
     SET search_path TO public, budgetdb;
@@ -29,10 +29,10 @@ GRANT USAGE ON SCHEMA budgetdb TO PUBLIC;
 GRANT ALL ON SCHEMA budgetdb TO budget_user;
 
 --Set for a specific database
---ALTER DATABASE expensedb SET search_path TO expensedb;
+--ALTER DATABASE budgetdb SET search_path TO budgetdb;
 
 -- Set for a specific role (user)
-ALTER ROLE expense_user SET search_path TO public, 'expensedb';
+ALTER ROLE budget_user SET search_path TO public, 'budgetdb';
 
 -- DEFINE TABLES
 CREATE TABLE currency (
@@ -96,26 +96,26 @@ CREATE TABLE budget_schedule (
 );
 
 -- grant permissions
-GRANT ALL ON TABLE public.budget TO budget_user;
-GRANT ALL ON TABLE public.budget_transaction TO budget_user;
-GRANT ALL ON TABLE public.budget_schedule TO budget_user;
-GRANT ALL ON TABLE public.budget_frequency_type TO budget_user;
-GRANT ALL ON TABLE public.currency TO budget_user;
-GRANT ALL ON TABLE public.budget_category TO budget_user;
-GRANT ALL ON TABLE public.budget_transaction TO budget_user;
-GRANT ALL ON TABLE public.budget_status TO budget_user;
-GRANT ALL ON TABLE public.budget_transaction_type TO budget_user;
+GRANT ALL ON TABLE budget TO budget_user;
+GRANT ALL ON TABLE budget_transaction TO budget_user;
+GRANT ALL ON TABLE budget_schedule TO budget_user;
+GRANT ALL ON TABLE budget_frequency_type TO budget_user;
+GRANT ALL ON TABLE currency TO budget_user;
+GRANT ALL ON TABLE budget_category TO budget_user;
+GRANT ALL ON TABLE budget_transaction TO budget_user;
+GRANT ALL ON TABLE budget_status TO budget_user;
+GRANT ALL ON TABLE budget_transaction_type TO budget_user;
 
 
-GRANT ALL ON SEQUENCE public.budget_category_id_seq TO budget_user;
-GRANT ALL ON SEQUENCE public.budget_id_seq TO budget_user;
-GRANT ALL ON SEQUENCE public.budget_transactions_id_seq TO budget_user;
-GRANT ALL ON SEQUENCE public.budget_frequency_type_id_seq TO budget_user;
-GRANT ALL ON SEQUENCE public.budget_transaction_id_seq TO budget_user;
+GRANT ALL ON SEQUENCE budget_category_id_seq TO budget_user;
+GRANT ALL ON SEQUENCE budget_id_seq TO budget_user;
+GRANT ALL ON SEQUENCE budget_transaction_id_seq TO budget_user;
+GRANT ALL ON SEQUENCE budget_frequency_type_id_seq TO budget_user;
+GRANT ALL ON SEQUENCE budget_transaction_id_seq TO budget_user;
 
 
 -- alter to add column
-ALTER TABLE IF EXISTS public.budget_transaction
+ALTER TABLE IF EXISTS budget_transaction
     ADD COLUMN type character varying(10) NOT NULL
 	REFERENCES budget_transaction_type(name) default 'payment';
 
